@@ -51,8 +51,7 @@ def invite_user(org, inviter, user, send_email=True):
 
 
 class UserListResource(BaseResource):
-    decorators = BaseResource.decorators + \
-        [limiter.limit('200/day;50/hour', methods=['POST'])]
+    decorators = BaseResource.decorators
 
     def get_users(self, disabled, pending, search_term):
         if disabled:
