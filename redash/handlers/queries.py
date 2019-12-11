@@ -227,14 +227,14 @@ class QueryListResource(BaseQueryListResource):
         require_access(data_source, self.current_user, not_view_only)
         require_access_to_dropdown_queries(self.current_user, query_def)
 
-        for field in ['id', 'created_at', 'api_key', 'visualizations', 'latest_query_data', 'last_modified_by']:
+        for field in ['created_at', 'api_key', 'visualizations', 'latest_query_data', 'last_modified_by']:
             query_def.pop(field, None)
 
         query_def['query_text'] = query_def.pop('query')
         query_def['user'] = self.current_user
         query_def['data_source'] = data_source
         query_def['org'] = self.current_org
-        query_def['is_draft'] = True
+
         query = models.Query.create(**query_def)
         models.db.session.add(query)
         models.db.session.commit()
